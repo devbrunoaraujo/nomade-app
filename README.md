@@ -1,4 +1,4 @@
-# CondoAgenda 🏢
+# NomadeApp 🏢
 **Sistema de Agendamento para Condomínios** – Lavanderia & Churrasqueira
 
 ---
