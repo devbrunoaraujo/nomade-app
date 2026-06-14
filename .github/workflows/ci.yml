@@ -1,0 +1,55 @@
+name: CI — Nomade App
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  lint-and-validate:
+    name: 🔍 Lint & Validação PHP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo, pdo_mysql, mbstring
+          coverage: none
+
+      - name: Verificar sintaxe PHP (lint)
+        run: |
+          echo "🔍 Verificando sintaxe de todos os arquivos PHP..."
+          find . -name "*.php" -not -path "./vendor/*" | while read file; do
+            php -l "$file" || exit 1
+          done
+          echo "✅ Nenhum erro de sintaxe encontrado!"
+
+      - name: Verificar arquivos obrigatórios
+        run: |
+          echo "📋 Verificando estrutura do projeto..."
+          required_files=(
+            "public/index.php"
+            "config/Database.php"
+            "sql/schema.sql"
+          )
+          for file in "${required_files[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Arquivo obrigatório não encontrado: $file"
+              exit 1
+            fi
+          done
+          echo "✅ Estrutura do projeto OK!"
+
+      - name: Verificar segurança — credenciais hardcoded
+        run: |
+          echo "🔐 Verificando credenciais expostas..."
+          if grep -rn "DB_PASS\s*=\s*['\"][^'\"]\+['\"]" config/ --include="*.php"; then
+            echo "⚠️  Atenção: senha hardcoded encontrada em config/"
+          fi
+          echo "✅ Verificação de segurança concluída!"

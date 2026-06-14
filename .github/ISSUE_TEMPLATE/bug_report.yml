@@ -1,0 +1,70 @@
+name: 🐛 Bug Report
+description: Reporte um bug ou comportamento inesperado
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar! Preencha com o máximo de detalhes possível.
+
+  - type: textarea
+    id: descricao
+    attributes:
+      label: 📋 Descrição do Bug
+      description: O que aconteceu? O que deveria ter acontecido?
+      placeholder: "Ao clicar em 'Agendar', a página retorna erro 500 em vez de confirmar o agendamento."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: 🔁 Passos para Reproduzir
+      description: Como reproduzimos o problema?
+      value: |
+        1. Faça login com o apartamento '101'
+        2. Acesse a tela de Lavanderia
+        3. Selecione um horário disponível
+        4. Clique em 'Agendar'
+        5. Veja o erro
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: ✅ Comportamento Esperado
+      placeholder: "O agendamento deveria ser confirmado e aparecer na lista."
+    validations:
+      required: true
+
+  - type: textarea
+    id: atual
+    attributes:
+      label: ❌ Comportamento Atual
+      placeholder: "Retorna erro 500 — Internal Server Error."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severidade
+    attributes:
+      label: 🔥 Severidade
+      options:
+        - "Crítico — sistema inoperante"
+        - "Alto — funcionalidade principal afetada"
+        - "Médio — funcionalidade secundária afetada"
+        - "Baixo — problema cosmético ou menor"
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: 🖥️ Contexto / Ambiente
+      value: |
+        - Navegador: 
+        - Sistema Operacional: 
+        - Versão PHP:

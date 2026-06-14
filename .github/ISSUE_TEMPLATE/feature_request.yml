@@ -1,0 +1,55 @@
+name: ✨ Feature Request
+description: Sugira uma nova funcionalidade ou melhoria
+title: "[FEAT] "
+labels: ["enhancement", "needs-triage"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Tem uma ideia para melhorar o Nomade App? Conte pra gente!
+
+  - type: textarea
+    id: problema
+    attributes:
+      label: 🎯 Qual problema essa feature resolve?
+      description: Descreva o contexto. Qual dor do usuário isso endereça?
+      placeholder: "Os moradores não conseguem ver o histórico dos seus agendamentos anteriores..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solucao
+    attributes:
+      label: 💡 Solução Proposta
+      description: Como você imagina que isso funcionaria?
+      placeholder: "Adicionar uma aba 'Histórico' no dashboard onde o morador vê todos os agendamentos passados..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternativas
+    attributes:
+      label: 🔄 Alternativas Consideradas
+      description: Considerou outras abordagens? Por que essa é a melhor?
+
+  - type: dropdown
+    id: prioridade
+    attributes:
+      label: 📊 Prioridade Sugerida
+      options:
+        - "Alta — impacta muitos usuários"
+        - "Média — melhoria importante"
+        - "Baixa — nice to have"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ Checklist
+      options:
+        - label: Pesquisei se já existe uma issue parecida
+          required: true
+        - label: Esta feature está alinhada com o propósito do Nomade App
+          required: true
