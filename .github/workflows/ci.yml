@@ -35,7 +35,7 @@ jobs:
           echo "📋 Verificando estrutura do projeto..."
           required_files=(
             "public/index.php"
-            "config/database.php"
+            "config/Database.php"
             "sql/schema.sql"
           )
           for file in "${required_files[@]}"; do
