@@ -1,0 +1,42 @@
+name: CD — Deploy para Render
+
+on:
+  push:
+    branches:
+      - main   # Deploy em produção
+      - develop # Deploy em staging
+
+jobs:
+  deploy:
+    name: 🚀 Deploy no Render
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Definir ambiente
+        id: env
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "service_id=${{ secrets.RENDER_SERVICE_ID_PROD }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=staging" >> $GITHUB_OUTPUT
+            echo "service_id=${{ secrets.RENDER_SERVICE_ID_STAGING }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🚀 Disparar deploy no Render
+        run: |
+          echo "Iniciando deploy em: ${{ steps.env.outputs.environment }}"
+          curl -s -X POST \
+            "https://api.render.com/v1/services/${{ steps.env.outputs.service_id }}/deploys" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}' \
+            | jq .
+
+      - name: ✅ Deploy iniciado
+        run: |
+          echo "Deploy disparado com sucesso para ${{ steps.env.outputs.environment }}!"
+          echo "Acompanhe em: https://dashboard.render.com"
