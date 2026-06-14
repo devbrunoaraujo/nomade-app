@@ -1,0 +1,40 @@
+services:
+  # Serviço de Produção
+  - type: web
+    name: nomade-app-prod
+    runtime: docker
+    branch: main
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: DB_HOST
+        sync: false   # Preencher manualmente no dashboard do Render
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: APP_ENV
+        value: production
+      - key: APP_URL
+        sync: false
+
+  # Serviço de Staging
+  - type: web
+    name: nomade-app-staging
+    runtime: docker
+    branch: develop
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: DB_HOST
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASS
+        sync: false
+      - key: APP_ENV
+        value: staging
