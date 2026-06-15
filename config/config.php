@@ -1,23 +1,21 @@
 <?php
 // config/config.php
 
-define('DB_HOST',    'localhost');
-define('DB_NAME',    'condominio_agendamento');
-define('DB_USER',    'root');        // altere para seu usuário MySQL
-define('DB_PASS',    '');            // altere para sua senha MySQL
+// ─── Banco de dados ───────────────────────────────────────────
+define('DB_HOST',    getenv('DB_HOST')    ?: 'localhost');
+define('DB_NAME',    getenv('DB_NAME')    ?: 'condominio_agendamento');
+define('DB_USER',    getenv('DB_USER')    ?: 'root');
+define('DB_PASS',    getenv('DB_PASS')    ?: '');
 define('DB_CHARSET', 'utf8mb4');
-define('DB_PORT',    3306);
+define('DB_PORT',    (int)(getenv('DB_PORT') ?: 3306));
 
-// Aplicação
+// ─── Aplicação ────────────────────────────────────────────────
 define('APP_NAME', 'Nomade Agenda');
-define('APP_URL',  'http://localhost/nomade-app/public');
-define('SESSION_TIMEOUT', 3600); // 1 hora
+define('APP_URL',  getenv('APP_URL') ?: 'http://localhost/nomade-app/public');
+define('SESSION_TIMEOUT', 3600);
 
-// ─── ASSETS_URL ──────────────────────────────────────────────
-// Detecta automaticamente o caminho base dos assets (CSS, JS, imagens).
-// Funciona independente do nome da pasta da aplicação no servidor.
-// Ex: se a pasta se chama "nomade", ASSETS_URL = "/nomade/public"
+// ─── Assets ───────────────────────────────────────────────────
 define('ASSETS_URL', rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/\\'));
 
-// Timezone
+// ─── Timezone ─────────────────────────────────────────────────
 date_default_timezone_set('America/Sao_Paulo');
